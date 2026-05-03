@@ -1,0 +1,25 @@
+# Push only Apps Script files (Code.gs, pop.gs, appsscript.json)
+**/index.html
+**/*.html
+kit/**
+css/**
+js/**
+media/**
+README.md
+.gitignore
+.git/**
+.clasp.json
+.claspignore
+.DS_Store
+**/.DS_Store
+.vscode/**
+.idea/**
+node_modules/**
+*.log
+firebase-debug.log
+.playwright-mcp/**
+test-results/**
+* 2.*
+* [0-9].*
+*-copy.*
+*.bak

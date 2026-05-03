@@ -16,7 +16,7 @@
 // CONFIG — Update SCRIPT_URL after deploying your Apps Script web app
 // =====================================================================
 const CONFIG = {
-    SCRIPT_URL: 'YOUR_APPS_SCRIPT_URL_HERE'
+    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycby9KjGsSxnQm5snj48pRJ1542PFWNLpNr7dvZfHGqLx8cFq_bildXzyXWA2EeR-yQiYGw/exec'
 };
 
 // Expose for pages that need to detect demo mode (e.g., gallery seed banner)
