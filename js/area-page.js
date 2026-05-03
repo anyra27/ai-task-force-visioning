@@ -173,8 +173,8 @@ window.AreaPage = (function () {
 
         // Validate
         const errors = [];
-        if (title.length < 5) errors.push('Title needs at least 5 characters.');
-        if (description.length < 30) errors.push('Description needs at least 30 characters — say what it does, who it\'s for, what problem it solves.');
+        if (!title) errors.push('Title is required.');
+        if (!description) errors.push('Description is required.');
         if (!/^https?:\/\//i.test(link)) errors.push('Link must be a full URL starting with http:// or https://');
 
         if (errors.length) {
