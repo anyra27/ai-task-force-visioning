@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Gallery · VVUSD AI Task Force Visioning</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: var(--font-body, 'Inter', sans-serif);
+            background: var(--bg-primary, #000);
+            color: var(--text-primary, #fff);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Background */
+        .gallery-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .gallery-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        [data-theme="light"] .gallery-grid-bg {
+            background-image: linear-gradient(rgba(2,6,23,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(2,6,23,0.03) 1px, transparent 1px);
+        }
+        .gallery-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.18;
+        }
+        .gallery-orb--teal { width: 700px; height: 700px; background: #2dd4bf; top: -10%; left: -10%; }
+        .gallery-orb--purple { width: 600px; height: 600px; background: #c084fc; top: 20%; right: -10%; }
+        .gallery-orb--orange { width: 600px; height: 600px; background: #fb923c; bottom: -10%; left: 30%; }
+        .gallery-orb--blue { width: 600px; height: 600px; background: #60a5fa; bottom: 10%; right: 20%; }
+        [data-theme="light"] .gallery-orb { opacity: 0.22; }
+
+        /* Header */
+        .gallery-header {
+            position: relative;
+            z-index: 2;
+            padding: 36px 48px 28px;
+            border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        [data-theme="light"] .gallery-header {
+            background: rgba(255, 255, 255, 0.65);
+            border-bottom: 1px solid rgba(2,6,23,0.08);
+        }
+        .gallery-header-inner {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .gallery-eyebrow-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+        .gallery-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+        }
+        .gallery-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin: 0 0 8px;
+        }
+        .gallery-title-accent {
+            background: linear-gradient(135deg, #2dd4bf, #c084fc, #fb923c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gallery-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            margin: 0;
+            max-width: 640px;
+        }
+        .gallery-meta {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            flex-wrap: wrap;
+        }
+        .gallery-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gallery-stat strong {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            font-size: 1.4rem;
+        }
+        .live-pulse {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #4ade80;
+        }
+        .live-pulse::before {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse 1.6s ease-in-out infinite;
+        }
+        .live-pulse.error { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #fca5a5; }
+        .live-pulse.error::before { background: #fca5a5; animation: none; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        .gallery-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: var(--bg-card, rgba(10,15,20,0.95));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+            border-radius: 9999px;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+        .gallery-back:hover {
+            color: var(--text-primary, #fff);
+            border-color: var(--border-accent, rgba(255,255,255,0.15));
+        }
+
+        /* Body */
+        .gallery-main {
+            position: relative;
+            z-index: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 48px 80px;
+        }
+        @media (max-width: 720px) {
+            .gallery-header { padding: 24px 20px 20px; }
+            .gallery-main { padding: 24px 20px 60px; }
+        }
+
+        /* Area sections */
+        .area-section {
+            margin-bottom: 56px;
+        }
+        .area-section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+        }
+        .area-section-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            color: var(--section-color);
+            padding: 5px 10px;
+            border: 1px solid color-mix(in srgb, var(--section-color) 35%, transparent);
+            border-radius: 9999px;
+            background: color-mix(in srgb, var(--section-color) 10%, transparent);
+            text-transform: uppercase;
+        }
+        .area-section-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
+        .area-section-count {
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+        }
+
+        /* Submission cards */
+        .submissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 720px) {
+            .submissions-grid { grid-template-columns: 1fr; }
+        }
+
+        .submission-card {
+            background: var(--bg-card, rgba(10,15,20,0.95));
+            border: 1px solid var(--border-default, rgba(255,255,255,0.1));
+            border-left: 3px solid var(--section-color);
+            border-radius: 16px;
+            padding: 24px 26px;
+            backdrop-filter: blur(12px);
+            transition: transform 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+        }
+        .submission-card:hover {
+            transform: translateY(-3px);
+            border-color: color-mix(in srgb, var(--section-color) 50%, transparent);
+            box-shadow: 0 16px 40px rgba(var(--section-rgb), 0.18);
+        }
+        .submission-card.is-new {
+            animation: cardLand 1.6s ease-out;
+        }
+        @keyframes cardLand {
+            0% {
+                opacity: 0;
+                transform: translateY(16px);
+                box-shadow: 0 0 0 0 var(--section-color);
+            }
+            30% {
+                opacity: 1;
+                transform: translateY(0);
+                box-shadow: 0 0 0 4px color-mix(in srgb, var(--section-color) 40%, transparent);
+            }
+            100% {
+                box-shadow: 0 16px 40px rgba(var(--section-rgb), 0.18);
+            }
+        }
+
+        .submission-meta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 0.7rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .submission-area-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 9px;
+            border-radius: 9999px;
+            background: color-mix(in srgb, var(--section-color) 12%, transparent);
+            color: var(--section-color);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+        }
+
+        .submission-title {
+            font-family: var(--font-display, 'Montserrat', sans-serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            margin: 0;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+        .submission-description {
+            font-size: 0.93rem;
+            color: var(--text-secondary, rgba(255,255,255,0.7));
+            line-height: 1.55;
+            margin: 0;
+            flex: 1;
+        }
+        .submission-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+            flex-wrap: wrap;
+        }
+        .submission-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: color-mix(in srgb, var(--section-color) 12%, transparent);
+            color: var(--section-color);
+            text-decoration: none;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .submission-link-btn:hover {
+            background: color-mix(in srgb, var(--section-color) 22%, transparent);
+            transform: translateX(2px);
+        }
+        .submission-members {
+            font-size: 0.78rem;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+        }
+
+        /* Empty state */
+        .area-section-empty {
+            padding: 36px;
+            text-align: center;
+            background: var(--bg-card, rgba(10,15,20,0.6));
+            border: 1px dashed var(--border-default, rgba(255,255,255,0.1));
+            border-radius: 16px;
+            color: var(--text-muted, rgba(255,255,255,0.4));
+            font-style: italic;
+            font-size: 0.92rem;
+        }
+
+        /* Connection state */
+        .demo-banner {
+            margin: 16px auto 0;
+            max-width: 1600px;
+            padding: 12px 20px;
+            background: rgba(251, 146, 60, 0.08);
+            border: 1px solid rgba(251, 146, 60, 0.2);
+            border-radius: 8px;
+            color: #fb923c;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-bg">
+        <div class="gallery-grid-bg"></div>
+        <div class="gallery-orb gallery-orb--teal"></div>
+        <div class="gallery-orb gallery-orb--purple"></div>
+        <div class="gallery-orb gallery-orb--orange"></div>
+        <div class="gallery-orb gallery-orb--blue"></div>
+    </div>
+
+    <header class="gallery-header">
+        <div class="gallery-header-inner">
+            <div>
+                <div class="gallery-eyebrow-row">
+                    <span class="gallery-eyebrow">VVUSD AI Task Force · Live Gallery</span>
+                </div>
+                <h1 class="gallery-title">What VVUSD's AI work could <span class="gallery-title-accent">look like next year</span>.</h1>
+                <p class="gallery-subtitle">Mockups built by the room, organized by area. Refreshes every 15 seconds.</p>
+                <a href="index.html" class="gallery-back">
+                    <i data-lucide="arrow-left" style="width: 13px; height: 13px;"></i>
+                    <span>Back to areas</span>
+                </a>
+            </div>
+            <div class="gallery-meta">
+                <div class="gallery-stat">
+                    <strong id="stat-submissions">—</strong>
+                    <span>submissions</span>
+                </div>
+                <div class="gallery-stat">
+                    <strong id="stat-areas">—</strong>
+                    <span>of 4 areas</span>
+                </div>
+                <span class="live-pulse" id="live-pulse">Live</span>
+            </div>
+        </div>
+    </header>
+
+    <div id="demo-banner-host"></div>
+
+    <main class="gallery-main">
+        <section class="area-section" id="section-teacher" style="--section-color: #2dd4bf; --section-rgb: 20, 184, 166;">
+            <div class="area-section-header">
+                <span class="area-section-num">Area 01</span>
+                <h2 class="area-section-title">Teacher Support</h2>
+                <span class="area-section-count" id="count-teacher">0 submissions</span>
+            </div>
+            <div class="submissions-grid" id="grid-teacher"></div>
+        </section>
+
+        <section class="area-section" id="section-student" style="--section-color: #c084fc; --section-rgb: 168, 85, 247;">
+            <div class="area-section-header">
+                <span class="area-section-num">Area 02</span>
+                <h2 class="area-section-title">Student Learning</h2>
+                <span class="area-section-count" id="count-student">0 submissions</span>
+            </div>
+            <div class="submissions-grid" id="grid-student"></div>
+        </section>
+
+        <section class="area-section" id="section-family" style="--section-color: #fb923c; --section-rgb: 251, 146, 60;">
+            <div class="area-section-header">
+                <span class="area-section-num">Area 03</span>
+                <h2 class="area-section-title">Family Engagement</h2>
+                <span class="area-section-count" id="count-family">0 submissions</span>
+            </div>
+            <div class="submissions-grid" id="grid-family"></div>
+        </section>
+
+        <section class="area-section" id="section-district" style="--section-color: #60a5fa; --section-rgb: 59, 130, 246;">
+            <div class="area-section-header">
+                <span class="area-section-num">Area 04</span>
+                <h2 class="area-section-title">Deeper District Systems</h2>
+                <span class="area-section-count" id="count-district">0 submissions</span>
+            </div>
+            <div class="submissions-grid" id="grid-district"></div>
+        </section>
+    </main>
+
+    <script src="js/submissions-service.js"></script>
+    <script>
+        const MODULE_ID = 'vvusd-ai-task-force-2026';
+        const POLL_INTERVAL_MS = 15000;
+        const AREAS = {
+            'Teacher Support': 'teacher',
+            'Student Learning': 'student',
+            'Family Engagement': 'family',
+            'Deeper District Systems': 'district'
+        };
+
+        const seenIds = new Set();
+        let firstLoad = true;
+
+        // Theme persistence
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+
+        function setPulse(state) {
+            const el = document.getElementById('live-pulse');
+            el.classList.remove('error');
+            if (state === 'demo') {
+                el.textContent = 'Demo · Live';
+            } else if (state === 'error') {
+                el.textContent = 'Connection issue';
+                el.classList.add('error');
+            } else {
+                el.textContent = 'Live';
+            }
+        }
+
+        function escapeHtml(s) {
+            if (s === null || s === undefined) return '';
+            const d = document.createElement('div');
+            d.textContent = String(s);
+            return d.innerHTML;
+        }
+
+        function safeUrl(s) {
+            try {
+                const u = new URL(s);
+                if (u.protocol === 'http:' || u.protocol === 'https:') return u.href;
+            } catch (e) {}
+            return null;
+        }
+
+        function buildCard(submission, isNew) {
+            const data = submission.data || {};
+            const areaKey = AREAS[data.area] || 'teacher';
+            const div = document.createElement('div');
+            div.className = 'submission-card' + (isNew ? ' is-new' : '');
+            div.dataset.id = submission.id;
+
+            const link = safeUrl(data.link);
+            const linkHtml = link
+                ? `<a class="submission-link-btn" href="${link}" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" style="width: 14px; height: 14px;"></i><span>Open mockup</span></a>`
+                : `<span class="submission-link-btn" style="opacity: 0.5; cursor: not-allowed;"><span>No valid link</span></span>`;
+
+            const members = data.members ? `<span class="submission-members">${escapeHtml(data.members)}</span>` : '';
+            const ts = submission.createdAt ? new Date(submission.createdAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '';
+
+            div.innerHTML = `
+                <div class="submission-meta">
+                    <span class="submission-area-chip">${escapeHtml(data.area || '')}</span>
+                    ${ts ? `<span>${escapeHtml(ts)}</span>` : ''}
+                </div>
+                <h3 class="submission-title">${escapeHtml(data.title || 'Untitled')}</h3>
+                <p class="submission-description">${escapeHtml(data.description || '')}</p>
+                <div class="submission-footer">
+                    ${linkHtml}
+                    ${members}
+                </div>
+            `;
+            return div;
+        }
+
+        function renderEmpty(grid, areaKey) {
+            grid.innerHTML = `<div class="area-section-empty">No submissions yet from this group.</div>`;
+        }
+
+        function render(submissions) {
+            // Group by area
+            const byArea = { teacher: [], student: [], family: [], district: [] };
+            (submissions || []).forEach(s => {
+                const area = (s.data && s.data.area) || '';
+                const key = AREAS[area];
+                if (key) byArea[key].push(s);
+            });
+
+            // Sort each area by createdAt descending (newest first)
+            Object.keys(byArea).forEach(k => {
+                byArea[k].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            });
+
+            // Update top stats
+            document.getElementById('stat-submissions').textContent = (submissions || []).length;
+            const filledAreas = Object.values(byArea).filter(arr => arr.length > 0).length;
+            document.getElementById('stat-areas').textContent = filledAreas;
+
+            // Render each area
+            Object.keys(byArea).forEach(areaKey => {
+                const grid = document.getElementById('grid-' + areaKey);
+                const counter = document.getElementById('count-' + areaKey);
+                const items = byArea[areaKey];
+
+                counter.textContent = items.length === 1 ? '1 submission' : `${items.length} submissions`;
+
+                if (items.length === 0) {
+                    renderEmpty(grid, areaKey);
+                    return;
+                }
+
+                grid.innerHTML = '';
+                items.forEach(s => {
+                    const isNew = !firstLoad && !seenIds.has(s.id);
+                    grid.appendChild(buildCard(s, isNew));
+                    seenIds.add(s.id);
+                });
+            });
+
+            firstLoad = false;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function showDemoBanner() {
+            const host = document.getElementById('demo-banner-host');
+            host.innerHTML = `<div class="demo-banner"><i data-lucide="info" style="width: 16px; height: 16px;"></i><span>Demo mode &mdash; SCRIPT_URL not configured. Showing seeded data so the gallery has something to render.</span></div>`;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Demo seed data (same shape as Sheets response)
+        const DEMO_SUBMISSIONS = [
+            {
+                id: 'demo-1',
+                createdAt: new Date(Date.now() - 8 * 60000).toISOString(),
+                data: {
+                    area: 'Teacher Support',
+                    title: 'Aeries Roster Snapshot',
+                    description: 'Period-by-period brief showing IEP/504, EL, GATE, attendance flags. Built from Aeries roster data — ends the click-shuffle every period start.',
+                    link: 'https://aistudio.google.com/demo-1',
+                    members: 'Maria L., Devon K., Sam P.'
+                }
+            },
+            {
+                id: 'demo-2',
+                createdAt: new Date(Date.now() - 5 * 60000).toISOString(),
+                data: {
+                    area: 'Student Learning',
+                    title: 'Student AI Reflection Journal',
+                    description: 'A weekly journal where students reflect on what they\'ve learned with and without AI. Builds metacognition and AI literacy across the year.',
+                    link: 'https://aistudio.google.com/demo-2',
+                    members: 'Allison R., Jen B.'
+                }
+            },
+            {
+                id: 'demo-3',
+                createdAt: new Date(Date.now() - 3 * 60000).toISOString(),
+                data: {
+                    area: 'Family Engagement',
+                    title: 'Multilingual Town Hall Triage',
+                    description: 'Pre-event family question collection across 5 languages, AI-clustered into themes the principal can actually address in 30 minutes.',
+                    link: 'https://gemini.google.com/canvas/demo-3',
+                    members: 'Jamal R., Patricia O.'
+                }
+            },
+            {
+                id: 'demo-4',
+                createdAt: new Date(Date.now() - 1 * 60000).toISOString(),
+                data: {
+                    area: 'Deeper District Systems',
+                    title: 'Intervention Referral Routing Engine',
+                    description: 'Teacher logs a 30-second classroom moment, AI structures it as an SST referral, routes to the right Tier 2/3 team — replaces the lost-paper trail.',
+                    link: 'https://gemini.google.com/canvas/demo-4',
+                    members: ''
+                }
+            }
+        ];
+
+        async function load() {
+            const isDemo = !window.SubmissionsService || SubmissionsService.isDemoMode();
+
+            if (isDemo) {
+                if (firstLoad) showDemoBanner();
+                setPulse('demo');
+                render(DEMO_SUBMISSIONS);
+                return;
+            }
+
+            try {
+                const submissions = await SubmissionsService.loadDistrictSubmissions(MODULE_ID, 'project', 200);
+                render(submissions);
+                setPulse('live');
+            } catch (err) {
+                console.error('Gallery: failed to load submissions', err);
+                setPulse('error');
+            }
+        }
+
+        load();
+        setInterval(load, POLL_INTERVAL_MS);
+        if (window.lucide) lucide.createIcons();
+    </script>
+</body>
+</html>

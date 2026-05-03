@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Engagement · VVUSD AI Task Force Visioning</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/area-page.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+</head>
+<body class="area-page">
+    <div class="area-bg">
+        <div class="area-bg-grid"></div>
+        <div class="area-bg-orb"></div>
+        <div class="area-bg-orb-two"></div>
+    </div>
+
+    <header class="area-header">
+        <a href="index.html" class="area-header-logo">
+            <span class="logo-text">VVUSD</span>
+            <span class="logo-divider"></span>
+            <span class="logo-subtitle">AI Task Force · Visioning</span>
+        </a>
+        <a href="index.html" class="area-back-link">
+            <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i>
+            <span>All areas</span>
+        </a>
+    </header>
+
+    <main class="area-page-wrap">
+        <!-- Eyebrow -->
+        <div class="area-eyebrow-row">
+            <span class="area-eyebrow-num">Area <span id="area-badge-number">01</span></span>
+            <span class="area-eyebrow-label" id="area-label">Teacher Support</span>
+        </div>
+
+        <h1 class="area-tagline" id="area-tagline">What teachers and school sites need to thrive with AI.</h1>
+
+        <h2 class="area-framing-title" id="area-framing-title">What should AI do for teachers next year?</h2>
+        <p class="area-framing-lead" id="area-framing-lead"></p>
+
+        <!-- Prompts grid -->
+        <p class="section-eyebrow">Three places to start</p>
+        <h3 class="section-title">Where the work could go</h3>
+        <div class="prompt-grid" id="prompt-grid"></div>
+
+        <!-- Spec card -->
+        <div class="spec-card">
+            <p class="spec-card-eyebrow">Step 1 · Converge as a group</p>
+            <h3 class="spec-card-title">Pick one thing to bring to life.</h3>
+            <p class="spec-card-lead">Before you open Gemini Canvas or Google AI Studio, talk through these together. The clearer the spec, the better the build.</p>
+            <ul class="spec-hints" id="spec-hints"></ul>
+        </div>
+
+        <!-- Submission form -->
+        <div class="form-card" id="form-card">
+            <div class="form-card-header">
+                <p class="form-card-eyebrow">Step 2 · Submit to the gallery</p>
+                <h3 class="form-card-title">Tell the room what you built.</h3>
+                <p class="form-card-lead">Once your group has a working mockup in Gemini Canvas or Google AI Studio, drop the share link here. The whole room sees it on the gallery screen.</p>
+            </div>
+
+            <form id="submission-form" novalidate>
+                <input type="hidden" id="field-area" name="area">
+
+                <div class="form-row">
+                    <label class="form-label" for="field-title">
+                        <span class="form-label-text">Title</span>
+                        <span class="form-label-hint">What do you call it?</span>
+                    </label>
+                    <input class="form-input" type="text" id="field-title" name="title" maxlength="80" placeholder="Differentiation Pack for the Lesson You're Teaching" required>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="field-description">
+                        <span class="form-label-text">Description</span>
+                        <span class="form-label-hint">What it does · who it's for · what problem it solves</span>
+                    </label>
+                    <textarea class="form-textarea" id="field-description" name="description" maxlength="400" placeholder="A teacher pastes a lesson and gets tuned versions for the actual students in their roster — IEP-aligned scaffolds, ELD supports, extensions for advanced learners. Pulls from Aeries student profiles." required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="field-link">
+                        <span class="form-label-text">Link</span>
+                        <span class="form-label-hint">Gemini Canvas or Google AI Studio share URL</span>
+                    </label>
+                    <input class="form-input" type="url" id="field-link" name="link" placeholder="https://..." required>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="field-members">
+                        <span class="form-label-text">Group Members</span>
+                        <span class="form-label-hint">Optional · comma-separated names</span>
+                    </label>
+                    <input class="form-input" type="text" id="field-members" name="members" maxlength="200" placeholder="Maria L., Devon K., Sam P.">
+                </div>
+
+                <div class="form-error" id="form-error"></div>
+
+                <div class="form-submit-row">
+                    <button type="submit" class="btn-submit" id="submit-btn">
+                        <span>Submit to the gallery</span>
+                        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success panel -->
+        <div class="success-panel" id="success-panel">
+            <div class="success-icon-wrap">
+                <i data-lucide="check" style="width: 36px; height: 36px;"></i>
+            </div>
+            <h3 class="success-title">Your group's mockup is in.</h3>
+            <p class="success-lead">It's now visible on the gallery screen for the whole room. Stay close — the share-out is next.</p>
+            <div class="success-actions">
+                <a href="gallery.html" class="primary">
+                    <i data-lucide="grid-3x3" style="width: 16px; height: 16px;"></i>
+                    <span>Open the gallery</span>
+                </a>
+                <a href="index.html" class="secondary">
+                    <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                    <span>Back to all areas</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/submissions-service.js"></script>
+    <script src="js/area-page.js"></script>
+    <script>
+        (function () {
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+        })();
+        AreaPage.init('family');
+    </script>
+</body>
+</html>

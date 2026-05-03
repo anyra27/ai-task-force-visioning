@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VVUSD AI Task Force · Visioning</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-elevated: #0a0f14;
+            --bg-card: rgba(10, 15, 20, 0.95);
+            --bg-card-hover: rgba(15, 22, 30, 0.9);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-default: rgba(255, 255, 255, 0.1);
+            --border-accent: rgba(255, 255, 255, 0.15);
+            --teal-400: #2dd4bf;
+            --teal-500: #14b8a6;
+            --teal-glow: rgba(20, 184, 166, 0.3);
+            --purple-400: #c084fc;
+            --purple-500: #a855f7;
+            --purple-glow: rgba(168, 85, 247, 0.3);
+            --orange-400: #fb923c;
+            --orange-500: #f97316;
+            --orange-glow: rgba(251, 146, 60, 0.35);
+            --blue-400: #60a5fa;
+            --blue-500: #3b82f6;
+            --blue-glow: rgba(59, 130, 246, 0.3);
+            --green-400: #4ade80;
+            --green-500: #22c55e;
+            --green-glow: rgba(34, 197, 94, 0.3);
+            --pink-400: #f472b6;
+            --pink-glow: rgba(236, 72, 153, 0.3);
+            --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+            --grid-color: rgba(255, 255, 255, 0.03);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #F9FAFB;
+            --bg-elevated: #FFFFFF;
+            --bg-card: rgba(255, 255, 255, 0.65);
+            --bg-card-hover: rgba(255, 255, 255, 0.8);
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+            --border-subtle: #F3F4F6;
+            --border-default: rgba(2, 6, 23, 0.08);
+            --border-accent: #D1D5DB;
+            --teal-glow: rgba(20, 184, 166, 0.25);
+            --purple-glow: rgba(168, 85, 247, 0.25);
+            --blue-glow: rgba(59, 130, 246, 0.25);
+            --grid-color: rgba(2, 6, 23, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        .landing-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .landing-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .landing-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            transition: transform 0.3s ease-out;
+        }
+
+        .landing-orb--purple {
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, var(--purple-400) 0%, rgba(168, 85, 247, 0.2) 30%, transparent 60%);
+            opacity: 0.35;
+            top: -20%;
+            left: 10%;
+        }
+
+        .landing-orb--blue {
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(circle, var(--blue-400) 0%, rgba(59, 130, 246, 0.2) 30%, transparent 60%);
+            opacity: 0.4;
+            top: -30%;
+            right: -10%;
+            left: auto;
+        }
+
+        .landing-orb--teal {
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--teal-400) 0%, rgba(20, 184, 166, 0.2) 30%, transparent 60%);
+            opacity: 0.25;
+            top: 10%;
+            left: -15%;
+        }
+
+        .landing-orb--orange {
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(circle, var(--orange-400) 0%, rgba(251, 146, 60, 0.2) 30%, transparent 60%);
+            opacity: 0.25;
+            bottom: -20%;
+            left: 20%;
+            top: auto;
+        }
+
+        .landing-orb--pink {
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--pink-400) 0%, rgba(236, 72, 153, 0.2) 30%, transparent 60%);
+            opacity: 0.2;
+            top: 5%;
+            right: -5%;
+            left: auto;
+        }
+
+        [data-theme="light"] .landing-orb {
+            opacity: 0.35;
+        }
+
+        .landing-particles {
+            position: absolute;
+            inset: 0;
+        }
+
+        .landing-particles canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 40px 60px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .header-bar {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: saturate(1.2) blur(12px);
+            -webkit-backdrop-filter: saturate(1.2) blur(12px);
+            border-bottom: 1px solid rgba(2, 6, 23, 0.08);
+            box-shadow: 0 1px 3px rgba(2, 6, 23, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-text {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .logo-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--border-default);
+        }
+
+        .logo-subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-muted);
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-default);
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            color: var(--text-primary);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--border-accent);
+            transform: scale(1.05);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(15deg);
+        }
+
+        .theme-toggle .sun-icon {
+            display: block;
+        }
+
+        .theme-toggle .moon-icon {
+            display: none;
+        }
+
+        [data-theme="light"] .theme-toggle .sun-icon {
+            display: none;
+        }
+
+        [data-theme="light"] .theme-toggle .moon-icon {
+            display: block;
+        }
+
+        .hub-label {
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--teal-400), var(--purple-400), var(--blue-400));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 15s ease-in-out infinite;
+        }
+
+        @keyframes gradShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hub-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .hub-title-accent {
+            background: linear-gradient(135deg, var(--teal-400), var(--purple-400));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hub-subtitle {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 32px;
+        }
+
+        .hub-divider {
+            width: 80px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--teal-400), var(--purple-400));
+            margin-bottom: 48px;
+        }
+
+        .session-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+        }
+
+        @property --gradient-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        @property --card-color {
+            syntax: '<color>';
+            initial-value: #2dd4bf;
+            inherits: false;
+        }
+
+        @property --card-glow {
+            syntax: '<color>';
+            initial-value: rgba(20, 184, 166, 0.3);
+            inherits: false;
+        }
+
+        @keyframes borderSpin {
+            to {
+                --gradient-angle: 360deg;
+            }
+        }
+
+        @keyframes colorCycleCool {
+
+            0%,
+            100% {
+                --card-color: var(--teal-400);
+                --card-glow: var(--teal-glow);
+            }
+
+            33% {
+                --card-color: var(--purple-400);
+                --card-glow: var(--purple-glow);
+            }
+
+            66% {
+                --card-color: var(--orange-400);
+                --card-glow: var(--orange-glow);
+            }
+        }
+
+        @keyframes colorCycleWarm {
+
+            0%,
+            100% {
+                --card-color: var(--green-400);
+                --card-glow: var(--green-glow);
+            }
+
+            25% {
+                --card-color: var(--purple-400);
+                --card-glow: var(--purple-glow);
+            }
+
+            50% {
+                --card-color: var(--blue-400);
+                --card-glow: var(--blue-glow);
+            }
+
+            75% {
+                --card-color: var(--orange-400);
+                --card-glow: var(--orange-glow);
+            }
+        }
+
+        @keyframes cardReveal {
+            from {
+                opacity: 0;
+                transform: translateY(32px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes iconColorCycleCool {
+
+            0%,
+            100% {
+                color: var(--teal-400);
+                background: rgba(20, 184, 166, 0.15);
+                box-shadow: 0 0 20px rgba(20, 184, 166, 0.15);
+            }
+
+            33% {
+                color: var(--purple-400);
+                background: rgba(168, 85, 247, 0.15);
+                box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
+            }
+
+            66% {
+                color: var(--orange-400);
+                background: rgba(251, 146, 60, 0.15);
+                box-shadow: 0 0 20px rgba(251, 146, 60, 0.15);
+            }
+        }
+
+        @keyframes iconColorCycleWarm {
+
+            0%,
+            100% {
+                color: var(--green-400);
+                background: rgba(34, 197, 94, 0.15);
+                box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+            }
+
+            25% {
+                color: var(--purple-400);
+                background: rgba(168, 85, 247, 0.15);
+                box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
+            }
+
+            50% {
+                color: var(--blue-400);
+                background: rgba(59, 130, 246, 0.15);
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+            }
+
+            75% {
+                color: var(--orange-400);
+                background: rgba(251, 146, 60, 0.15);
+                box-shadow: 0 0 20px rgba(251, 146, 60, 0.15);
+            }
+        }
+
+        @keyframes iconFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        @keyframes arrowNudge {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(4px);
+            }
+        }
+
+        .session-card {
+            --card-color: #fff;
+            --card-glow: rgba(255, 255, 255, 0.15);
+            position: relative;
+            border-radius: var(--radius-xl);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            isolation: isolate;
+            cursor: pointer;
+            background:
+                linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+                conic-gradient(from var(--gradient-angle),
+                    transparent 25%,
+                    var(--card-color) 37%,
+                    var(--card-color) 50%,
+                    transparent 62%) border-box;
+            border: 1.5px solid transparent;
+            animation:
+                borderSpin 6s linear infinite,
+                colorCycleCool 10s ease-in-out infinite,
+                cardReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+            animation-delay:
+                0s,
+                calc(var(--card-index, 0) * -5s),
+                calc(var(--card-index, 0) * 0.12s);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .session-card--orange {
+            --card-color: var(--orange-400);
+            --card-glow: var(--orange-glow);
+        }
+
+        .session-card--teal {
+            --card-color: var(--teal-400);
+            --card-glow: var(--teal-glow);
+        }
+
+        .session-card--purple {
+            --card-color: var(--purple-400);
+            --card-glow: var(--purple-glow);
+        }
+
+        .session-card--blue {
+            --card-color: var(--blue-400);
+            --card-glow: var(--blue-glow);
+        }
+
+        .session-card--green {
+            --card-color: var(--green-400);
+            --card-glow: var(--green-glow);
+            animation-name: borderSpin, colorCycleWarm, cardReveal;
+        }
+
+        .session-card--pink {
+            --card-color: var(--pink-400);
+            --card-glow: var(--pink-glow);
+            animation-name: borderSpin, colorCycleWarm, cardReveal;
+        }
+
+        .session-card-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% -10%, var(--card-glow) 0%, transparent 70%);
+            opacity: 0.5;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .session-card:hover .session-card-glow {
+            opacity: 1;
+        }
+
+        .session-card-noise {
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            background-size: 128px 128px;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .session-card-inner {
+            position: relative;
+            z-index: 3;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .session-card:hover {
+            transform: translateY(-6px) scale(1.015);
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, 0.35),
+                0 0 50px -10px var(--card-glow);
+        }
+
+        [data-theme="light"] .session-card {
+            background:
+                linear-gradient(var(--bg-elevated), var(--bg-elevated)) padding-box,
+                conic-gradient(from var(--gradient-angle),
+                    transparent 25%,
+                    var(--card-color) 37%,
+                    var(--card-color) 50%,
+                    transparent 62%) border-box;
+            box-shadow: 0 4px 16px rgba(2, 6, 23, 0.07);
+        }
+
+        [data-theme="light"] .session-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow:
+                0 12px 32px rgba(2, 6, 23, 0.1),
+                0 0 40px -10px var(--card-glow);
+        }
+
+        [data-theme="light"] .session-card-glow {
+            opacity: 0.3;
+        }
+
+        [data-theme="light"] .session-card:hover .session-card-glow {
+            opacity: 0.6;
+        }
+
+        [data-theme="light"] .session-card-noise {
+            opacity: 0.3;
+        }
+
+        .session-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            animation: iconColorCycleCool 10s ease-in-out infinite;
+            animation-delay: calc(var(--card-index, 0) * -5s);
+        }
+
+        .session-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .session-card:hover .session-icon {
+            animation: iconColorCycleCool 10s ease-in-out infinite, iconFloat 2s ease-in-out infinite;
+            animation-delay: calc(var(--card-index, 0) * -5s), 0s;
+        }
+
+        .session-card--green .session-icon {
+            animation: iconColorCycleWarm 10s ease-in-out infinite;
+            animation-delay: calc(var(--card-index, 0) * -5s);
+        }
+
+        .session-card--green:hover .session-icon {
+            animation: iconColorCycleWarm 10s ease-in-out infinite, iconFloat 2s ease-in-out infinite;
+            animation-delay: calc(var(--card-index, 0) * -5s), 0s;
+        }
+
+        .session-card--pink .session-icon {
+            animation: iconColorCycleWarm 10s ease-in-out infinite;
+            animation-delay: calc(var(--card-index, 0) * -5s);
+        }
+
+        .session-card--pink:hover .session-icon {
+            animation: iconColorCycleWarm 10s ease-in-out infinite, iconFloat 2s ease-in-out infinite;
+            animation-delay: calc(var(--card-index, 0) * -5s), 0s;
+        }
+
+        .session-icon--orange {
+            background: rgba(251, 146, 60, 0.15);
+            color: var(--orange-400);
+            box-shadow: 0 0 20px rgba(251, 146, 60, 0.15);
+        }
+
+        .session-icon--teal {
+            background: rgba(20, 184, 166, 0.15);
+            color: var(--teal-400);
+            box-shadow: 0 0 20px rgba(20, 184, 166, 0.15);
+        }
+
+        .session-icon--purple {
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--purple-400);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
+        }
+
+        .session-icon--blue {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--blue-400);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+        }
+
+        .session-icon--green {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green-400);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+        }
+
+        .session-icon--pink {
+            background: rgba(236, 72, 153, 0.15);
+            color: var(--pink-400);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.15);
+        }
+
+        .session-badge {
+            display: inline-flex;
+            width: fit-content;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(4px);
+        }
+
+        .session-badge--orange {
+            background: rgba(251, 146, 60, 0.12);
+            color: var(--orange-400);
+            border: 1px solid rgba(251, 146, 60, 0.2);
+        }
+
+        .session-badge--teal {
+            background: rgba(20, 184, 166, 0.12);
+            color: var(--teal-400);
+            border: 1px solid rgba(20, 184, 166, 0.2);
+        }
+
+        .session-badge--purple {
+            background: rgba(168, 85, 247, 0.12);
+            color: var(--purple-400);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .session-badge--blue {
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--blue-400);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .session-badge--green {
+            background: rgba(34, 197, 94, 0.12);
+            color: var(--green-400);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .session-badge--pink {
+            background: rgba(236, 72, 153, 0.12);
+            color: var(--pink-400);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+        }
+
+        .session-title {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .session-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            flex: 1;
+        }
+
+        .session-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding-top: 12px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .session-arrow {
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            width: fit-content;
+            background: transparent;
+            position: relative;
+            z-index: 1;
+            transition: gap 0.3s ease, background 0.3s ease;
+        }
+
+
+        .session-card:hover .session-arrow {
+            gap: 12px;
+        }
+
+        .session-card--teal:hover .session-arrow {
+            background: rgba(20, 184, 166, 0.1);
+        }
+
+        .session-card--green:hover .session-arrow {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .session-card--pink:hover .session-arrow {
+            background: rgba(236, 72, 153, 0.1);
+        }
+
+        .session-card--orange:hover .session-arrow {
+            background: rgba(251, 146, 60, 0.1);
+        }
+
+        .session-card--purple:hover .session-arrow {
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        .session-card--blue:hover .session-arrow {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .session-card:hover .session-arrow i {
+            animation: arrowNudge 1s ease-in-out infinite;
+        }
+
+        .session-card--orange .session-arrow {
+            color: var(--orange-400);
+        }
+
+        .session-card--teal .session-arrow {
+            color: var(--teal-400);
+        }
+
+        .session-card--purple .session-arrow {
+            color: var(--purple-400);
+        }
+
+        .session-card--blue .session-arrow {
+            color: var(--blue-400);
+        }
+
+        .session-card--green .session-arrow {
+            color: var(--green-400);
+        }
+
+        .session-card--pink .session-arrow {
+            color: var(--pink-400);
+        }
+
+        @media (max-width: 1024px) {
+            .session-grid {
+                max-width: 700px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .session-grid {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                padding: 100px 20px 40px;
+            }
+
+            .header-bar {
+                padding: 16px 20px;
+            }
+
+            .logo-subtitle {
+                display: none;
+            }
+
+            .landing-orb--purple {
+                width: 600px;
+                height: 600px;
+                opacity: 0.25;
+            }
+
+            .landing-orb--blue {
+                width: 500px;
+                height: 500px;
+                opacity: 0.3;
+            }
+
+            .landing-orb--teal {
+                width: 450px;
+                height: 450px;
+                opacity: 0.2;
+            }
+
+            .landing-orb--orange {
+                width: 500px;
+                height: 500px;
+                opacity: 0.2;
+            }
+
+            .landing-orb--pink {
+                width: 450px;
+                height: 450px;
+                opacity: 0.15;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="landing-bg">
+        <div class="landing-grid"></div>
+        <div class="landing-orb landing-orb--teal"></div>
+        <div class="landing-orb landing-orb--blue"></div>
+        <div class="landing-orb landing-orb--purple"></div>
+        <div class="landing-orb landing-orb--orange"></div>
+        <div class="landing-orb landing-orb--pink"></div>
+        <div class="landing-particles" id="particles-container"></div>
+    </div>
+
+    <header class="header-bar">
+        <a href="index.html" class="logo">
+            <span class="logo-text">VVUSD</span>
+            <span class="logo-divider"></span>
+            <span class="logo-subtitle">AI Task Force · Visioning</span>
+        </a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+        </button>
+    </header>
+
+    <div class="page">
+        <p class="hub-label">VVUSD AI Task Force · 2026</p>
+        <h1 class="hub-title">Where should AI go at <span class="hub-title-accent">VVUSD next year?</span></h1>
+        <p class="hub-subtitle">Pick the area you care about most. Find your group. Vibe-code one thing the district should bring to life. Submit it to the gallery.</p>
+        <div class="hub-divider"></div>
+
+        <div class="session-grid">
+            <!-- Teacher Support -->
+            <a href="teacher-support.html" class="session-card session-card--teal" style="--card-index: 0;">
+                <div class="session-card-glow"></div>
+                <div class="session-card-noise"></div>
+                <div class="session-card-inner">
+                    <div class="session-icon session-icon--teal">
+                        <i data-lucide="users" style="width: 38px; height: 38px;"></i>
+                    </div>
+                    <span class="session-badge session-badge--teal">Area 01</span>
+                    <h2 class="session-title">Teacher Support</h2>
+                    <p class="session-desc">What teachers and school sites need to thrive with AI &mdash; classroom tools, district-data-driven supports, capacity that lasts.</p>
+                    <div class="session-meta">
+                        <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+                        <span>Build one thing &middot; Submit to the gallery</span>
+                    </div>
+                    <div class="session-arrow">
+                        <span>Join this group</span>
+                        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Student Learning -->
+            <a href="student-learning.html" class="session-card session-card--purple" style="--card-index: 1;">
+                <div class="session-card-glow"></div>
+                <div class="session-card-noise"></div>
+                <div class="session-card-inner">
+                    <div class="session-icon session-icon--purple">
+                        <i data-lucide="book-open" style="width: 38px; height: 38px;"></i>
+                    </div>
+                    <span class="session-badge session-badge--purple">Area 02</span>
+                    <h2 class="session-title">Student Learning</h2>
+                    <p class="session-desc">What students should be doing with AI. Curriculum, AI literacy, content for the classroom &mdash; voice that we&rsquo;re doing enough.</p>
+                    <div class="session-meta">
+                        <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+                        <span>Build one thing &middot; Submit to the gallery</span>
+                    </div>
+                    <div class="session-arrow">
+                        <span>Join this group</span>
+                        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Family Engagement -->
+            <a href="family-engagement.html" class="session-card session-card--orange" style="--card-index: 2;">
+                <div class="session-card-glow"></div>
+                <div class="session-card-noise"></div>
+                <div class="session-card-inner">
+                    <div class="session-icon session-icon--orange">
+                        <i data-lucide="heart-handshake" style="width: 38px; height: 38px;"></i>
+                    </div>
+                    <span class="session-badge session-badge--orange">Area 03</span>
+                    <h2 class="session-title">Family Engagement</h2>
+                    <p class="session-desc">Extending VVUSD&rsquo;s reach to families &mdash; multilingual content, two-way contact, AI literacy that meets parents where they are.</p>
+                    <div class="session-meta">
+                        <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+                        <span>Build one thing &middot; Submit to the gallery</span>
+                    </div>
+                    <div class="session-arrow">
+                        <span>Join this group</span>
+                        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Deeper District Systems -->
+            <a href="district-systems.html" class="session-card session-card--blue" style="--card-index: 3;">
+                <div class="session-card-glow"></div>
+                <div class="session-card-noise"></div>
+                <div class="session-card-inner">
+                    <div class="session-icon session-icon--blue">
+                        <i data-lucide="layers" style="width: 38px; height: 38px;"></i>
+                    </div>
+                    <span class="session-badge session-badge--blue">Area 04</span>
+                    <h2 class="session-title">Deeper District Systems</h2>
+                    <p class="session-desc">Workflow, integration, automation that touches the broader district apparatus &mdash; the plumbing that lets AI actually live in our work.</p>
+                    <div class="session-meta">
+                        <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+                        <span>Build one thing &middot; Submit to the gallery</span>
+                    </div>
+                    <div class="session-arrow">
+                        <span>Join this group</span>
+                        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div style="margin-top: 64px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+            <a href="gallery.html" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; color: var(--text-primary); text-decoration: none; font-weight: 500; backdrop-filter: blur(12px); transition: all 0.3s ease;">
+                <i data-lucide="grid-3x3" style="width: 18px; height: 18px;"></i>
+                <span>View the live gallery</span>
+                <i data-lucide="arrow-up-right" style="width: 14px; height: 14px; opacity: 0.6;"></i>
+            </a>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Already submitted? See what other groups built.</p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Particles
+        (function () {
+            'use strict';
+            class P {
+                constructor(w, h, s = 0.3) {
+                    this.x = Math.random() * w; this.y = Math.random() * h;
+                    this.vx = (Math.random() - 0.5) * s; this.vy = (Math.random() - 0.5) * s;
+                    this.r = Math.random() * 1.5 + 0.5;
+                    this.bo = Math.random() * 0.4 + 0.2; this.o = this.bo;
+                    this.ss = Math.random() * 0.02 + 0.01; this.so = Math.random() * Math.PI * 2;
+                }
+                update(w, h) {
+                    this.x += this.vx; this.y += this.vy;
+                    if (this.x < 0 || this.x > w) this.vx *= -1;
+                    if (this.y < 0 || this.y > h) this.vy *= -1;
+                    this.so += this.ss;
+                    this.o = this.bo * (Math.sin(this.so) * 0.3 + 0.7);
+                }
+                draw(c) { c.beginPath(); c.arc(this.x, this.y, this.r, 0, Math.PI * 2); c.fillStyle = `rgba(255,255,255,${this.o})`; c.fill(); }
+            }
+            const el = document.getElementById('particles-container'); if (!el) return;
+            const cv = document.createElement('canvas'); el.appendChild(cv); const ctx = cv.getContext('2d');
+            function rs() { cv.width = window.innerWidth; cv.height = window.innerHeight; } rs(); window.addEventListener('resize', rs);
+            const ps = []; for (let i = 0; i < 80; i++) ps.push(new P(cv.width, cv.height));
+            function a() {
+                ctx.clearRect(0, 0, cv.width, cv.height); ps.forEach(p => p.update(cv.width, cv.height));
+                for (let i = 0; i < ps.length; i++) for (let j = i + 1; j < ps.length; j++) { const d = Math.sqrt((ps[i].x - ps[j].x) ** 2 + (ps[i].y - ps[j].y) ** 2); if (d < 130) { ctx.beginPath(); ctx.moveTo(ps[i].x, ps[i].y); ctx.lineTo(ps[j].x, ps[j].y); ctx.strokeStyle = `rgba(255,255,255,${0.08 * (1 - d / 130)})`; ctx.lineWidth = 0.5; ctx.stroke(); } }
+                ps.forEach(p => p.draw(ctx)); requestAnimationFrame(a);
+            } a();
+        })();
+
+        // Theme
+        function toggleTheme() { const h = document.documentElement; h.setAttribute('data-theme', h.getAttribute('data-theme') !== 'light' ? 'light' : 'dark'); localStorage.setItem('theme', h.getAttribute('data-theme')); }
+        (function () { document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark'); })();
+    </script>
+</body>
+
+</html>
